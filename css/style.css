@@ -1,0 +1,95 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  #interface {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 350px;
+    text-align: center;
+  }
+
+  h1 {
+    color: #333;
+    font-size: 24px;
+  }
+
+  /* Estilos del input y botones */
+  input[type="password"],
+  input[type="number"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  button {
+    width: calc(100% - 20px);
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #218838;
+  }
+
+  button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+
+  /* Sección de mensajes */
+  p {
+    font-size: 14px;
+    color: #555;
+  }
+  
+
+  /* Estilo del menú */
+  #menu-section button {
+    margin: 5px 0;
+    background-color: #007bff;
+    transition: background-color 0.3s ease;
+  }
+
+  #menu-section button:hover {
+    background-color: #0056b3;
+  }
+
+  #menuMessage,
+  #actionMessage {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+    
+    /* display: none; */
+  }
+
+  #menuMessage.active,
+  #actionMessage.active {
+    display: block;
+  }
+
+  /* Ocultar la sección de acciones al inicio */
+  #action-section {
+    display: none;
+  }
