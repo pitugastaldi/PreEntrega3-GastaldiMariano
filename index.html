@@ -4,36 +4,61 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cajero Automático</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    
   <h1>Cajero Automático</h1>
   <div id="interface">
+    <!-- Sección de ingreso de PIN -->
     <div id="pin-section">
       <input type="password" id="pinInput" placeholder="Ingrese su PIN">
       <button id="submitPin">Enviar PIN</button>
       <p id="pinMessage"></p>
     </div>
     
+    <!-- Sección de menú -->
     <div id="menu-section" style="display: none;">
       <button data-option="a">Ver Saldo</button>
       <button data-option="b">Retirar Dinero</button>
       <button data-option="c">Depositar Dinero</button>
       <button data-option="d">Cambiar PIN</button>
       <button data-option="e">Ver Transacciones</button>
-      <button data-option="f">Transferir Dinero</button>
+      <button id="btnTransferir" class="btn btn-primary">Transferir a otra cuenta</button>
       <button data-option="g">Salir</button>
-      <p id="menuMessage"></p>
+      <p id="menuMessage" class="active"></p>
     </div>
     
+    <!-- Sección de acciones -->
     <div id="action-section" style="display: none;">
       <input type="number" id="amountInput" placeholder="Ingrese monto">
       <button id="confirmAction">Confirmar</button>
-      <p id="actionMessage"></p>
+      <p id="actionMessage" class="active"></p>
     </div>
   </div>
 
+  <div id="transacciones-section" style="display:none;">
+    <h3>Historial de transacciones</h3>
+    <table id="tabla-transacciones" border="1">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Monto</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpo-transacciones">
+        <!-- Las transacciones aparecerán aquí -->
+      </tbody>
+    </table>
+    <button id="volver-menu">Volver al menú</button>
+  </div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.1/luxon.min.js"></script>
   <script src="/js/main.js"></script>
 </body>
 </html>
+
