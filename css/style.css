@@ -7,6 +7,67 @@ body {
     height: 100vh;
     margin: 0;
   }
+
+/* Contenedor con scroll para tablas anchas */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Scroll horizontal si la tabla se desborda */
+    margin-top: 20px;
+  }
+  
+  /* Estilo para la tabla */
+  .styled-table {
+    width: 100%; /* Ocupar el 100% del ancho del contenedor */
+    border-collapse: collapse;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    text-align: left;
+  }
+  
+  .styled-table thead tr {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px 15px;
+    text-align: left; /* Alinear el texto a la izquierda */
+    white-space: nowrap; /* Evitar que el texto se quiebre en múltiples líneas */
+  }
+  
+  .styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+  }
+  
+  /* Alternar colores de las filas */
+  .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  /* Botón de volver al menú */
+  .btn-volver {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  
+  .btn-volver:hover {
+    background-color: #45a049;
+  }
+  
+
+
   
   #interface {
     background-color: #ffffff;
@@ -24,12 +85,12 @@ body {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
   }
   
-  h1 {
+/* Encabezado */
+h1 {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
     color: #333;
-    font-size: 28px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    text-transform: uppercase;
+    margin-bottom: 30px;
   }
   
   input[type="password"], input[type="number"] {
@@ -83,4 +144,6 @@ body {
   #menu-section button:hover {
     background-color: #138496;
   }
+
+  
   

@@ -6,6 +6,8 @@
   <title>Cajero Automático</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 </head>
 <body>
   <h1>Cajero Automático</h1>
@@ -19,12 +21,12 @@
     
     <!-- Sección de menú -->
     <div id="menu-section" style="display: none;">
-      <button data-option="a">Ver Saldo</button>
+      <button data-option="a">Ver Saldo</button> 
       <button data-option="b">Retirar Dinero</button>
       <button data-option="c">Depositar Dinero</button>
       <button data-option="d">Cambiar PIN</button>
       <button data-option="e">Ver Transacciones</button>
-      <button id="btnTransferir" class="btn btn-primary">Transferir a otra cuenta</button>
+      <button id="btnTransferir" class="btn btn-primary" data-option="f">Transferir a otra cuenta</button>
       <button data-option="g">Salir</button>
       <p id="menuMessage" class="active"></p>
     </div>
@@ -36,25 +38,27 @@
       <p id="actionMessage" class="active"></p>
     </div>
   </div>
-
   <div id="transacciones-section" style="display:none;">
     <h3>Historial de transacciones</h3>
-    <table id="tabla-transacciones" border="1">
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Monto</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody id="cuerpo-transacciones">
-        <!-- Las transacciones aparecerán aquí -->
-      </tbody>
-    </table>
-    <button id="volver-menu">Volver al menú</button>
+    <div class="table-container">
+      <table id="tabla-transacciones" class="styled-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Monto</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-transacciones">
+          <!-- Las transacciones aparecerán aquí -->
+        </tbody>
+      </table>
+    </div>
+    <button id="volver-menu" class="btn-volver">Volver al menú</button>
   </div>
+  <!-- Agregar elemento para mostrar el saldo actual -->
   
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/validator/13.6.0/validator.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.0.1/luxon.min.js"></script>
