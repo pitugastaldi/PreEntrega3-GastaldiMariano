@@ -1,10 +1,8 @@
-// Variables globales
 let pinCorrecto = 1234;
 let saldo = 1000;
 let transacciones = [];
 let currentAction = null;
 
-// localStorage
 function cargarDatos() {
   const pinGuardado = localStorage.getItem('pinCorrecto');
   const saldoGuardado = localStorage.getItem('saldo');
@@ -21,7 +19,7 @@ function guardarDatos() {
   localStorage.setItem('transacciones', JSON.stringify(transacciones));
 }
 
-// DOM elements
+
 const pinSection = document.getElementById('pin-section');
 const pinInput = document.getElementById('pinInput');
 const submitPinBtn = document.getElementById('submitPin');
@@ -35,7 +33,7 @@ const amountInput = document.getElementById('amountInput');
 const confirmActionBtn = document.getElementById('confirmAction');
 const actionMessage = document.getElementById('actionMessage');
 
-// Funciones de UX
+
 function mostrarCarga(mensaje) {
   Swal.fire({
     title: mensaje,
@@ -78,8 +76,6 @@ function mostrarNotificacion(mensaje, tipo) {
 function actualizarSaldoUI() {
   const saldoElement = document.getElementById('saldoActual');
   const colorSaldo = saldo > 0 ? 'text-success' : 'text-danger';
-  saldoElement.textContent =`$${saldo}`;
-  saldoElement.className = colorSaldo;
 }
 
 function mostrarSeccion(seccion) {
@@ -93,10 +89,9 @@ function ocultarSeccion(seccion) {
   setTimeout(() => {
     seccion.style.display = 'none';
     seccion.classList.remove('animate__animated', 'animate__fadeOut');
-  }, 1000); // Duración de la animación
+  }, 1000);
 }
 
-// Mostrar mensaje de bienvenida
 function mostrarMensajeBienvenida() {
   mostrarSeccion(pinSection);
   ocultarSeccion(menuSection);
@@ -104,21 +99,19 @@ function mostrarMensajeBienvenida() {
   pinMessage.textContent = 'Bienvenido al cajero automático';
 }
 
-// Función para simular la verificación de PIN usando una promesa
 function verificarPINConPromesa(pinIngresado) {
   return new Promise((resolve, reject) => {
-    // Simular un retraso en la verificación del PIN
-    setTimeout(() => {
+        setTimeout(() => {
       if (pinIngresado === pinCorrecto) {
         resolve('PIN correcto');
       } else {
         reject('PIN incorrecto');
       }
-    }, 2000); // 2 segundos de espera
+    }, 2000);
   });
 }
 
-// Validar el PIN ingresado con indicador de carga
+
 function validarPIN() {
   const pinIngresado = parseInt(pinInput.value, 10);
   
@@ -147,7 +140,7 @@ function validarPIN() {
     });
 }
 
-// Mostrar menú de acciones
+
 function mostrarMenu(opcion) {
   switch (opcion) {
     case 'a':
@@ -178,14 +171,13 @@ function mostrarMenu(opcion) {
   }
 }
 
-// Mostrar sección de acción para retirar/depositar/transferir
+
 function mostrarAccion(tipo) {
   actionSection.style.display = 'block';
   menuMessage.textContent = `Ingrese el monto a ${tipo}`;
   resetearCampos(actionSection);
 }
 
-// Ver saldo actual
 function verSaldo() {
   const colorSaldo = saldo > 0 ? 'green' : 'red';
   Swal.fire({
@@ -196,7 +188,7 @@ function verSaldo() {
   });
 }
 
-// Validar el monto ingresado para operaciones
+
 function validarMonto(monto) {
   return new Promise((resolve, reject) => {
     if (isNaN(monto) || monto <= 0) {
@@ -208,7 +200,6 @@ function validarMonto(monto) {
   });
 }
 
-// Retirar dinero
 async function retirarDinero(monto) {
     try {
       const montoValido = await validarMonto(monto);
@@ -219,18 +210,17 @@ async function retirarDinero(monto) {
       mostrarCarga("Procesando retiro...");
       deshabilitarBotones(actionSection);
   
-      // Simular verificación remota
       await validarRetiroConPromesa(montoValido);
   
-      saldo -= montoValido; // Restar el monto del saldo actual
+      saldo -= montoValido; 
       registrarTransaccion(`Retiro: $${montoValido}`);
       
       cerrarCarga();
 
-      // Mostrar notificación con el saldo final
+     
       mostrarNotificacion(`Retiro exitoso de $${montoValido}. Saldo actual: $${saldo.toFixed(2)}`, "success");
       
-      actualizarSaldoUI(); // Actualiza el saldo en la interfaz de usuario
+      actualizarSaldoUI(); 
       guardarDatos();
       resetearCampos(actionSection);
       habilitarBotones(actionSection);
@@ -242,8 +232,6 @@ async function retirarDinero(monto) {
     }
 }
 
-  
-  // Depositar dinero
   async function depositarDinero(monto) {
     try {
       const montoValido = await validarMonto(monto);
@@ -251,8 +239,8 @@ async function retirarDinero(monto) {
       mostrarCarga("Procesando depósito...");
       deshabilitarBotones(actionSection);
   
-      // Simular verificación remota
-      await validarDepositoConPromesa(montoValido); // Cambiamos el nombre de la función a validarDepositoConPromesa
+     
+      await validarDepositoConPromesa(montoValido); 
   
       saldo += montoValido;
       registrarTransaccion(`Depósito: $${montoValido}`);
@@ -270,43 +258,32 @@ async function retirarDinero(monto) {
   }
   
 
-// Función para validar retiro usando fetch (simulación)
 function validarRetiroConPromesa(monto) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        // Validación del retiro usando promesas
+        
         if (monto > 0 && monto <= saldo) {
-          resolve('Retiro válido'); // Si el monto es válido
+          resolve('Retiro válido'); 
         } else {
-          reject(`Fondos insuficientes. Saldo actual: $${saldo}`); // Si el monto es mayor que el saldo o es inválido
+          reject(`Fondos insuficientes. Saldo actual: $${saldo}`); 
         }
-      }, 1500); // Simular un retraso de 1.5 segundos
+      }, 1500); 
     });
   }
 
   function validarDepositoConPromesa(monto) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        // Validación del retiro usando promesas
+        
         if (monto > 0 && monto <= saldo) {
-          resolve('Deposito válido'); // Si el monto es válido
+          resolve('Deposito válido'); 
         } else {
-          reject(`Fondos insuficientes. Saldo actual: $${saldo}`); // Si el monto es mayor que el saldo o es inválido
+          reject(`Fondos insuficientes. Saldo actual: $${saldo}`); 
         }
-      }, 1500); // Simular un retraso de 1.5 segundos
+      }, 1500); 
     });
   }
   
-  
- 
-
-  function actualizarSaldoUI() {
-    const saldoElement = document.getElementById('saldo-actual'); // Asegúrate de que este ID coincide con el elemento HTML que muestra el saldo
-    saldoElement.textContent = `$${saldo.toFixed(2)}`; // Actualiza el texto del elemento con el saldo formateado
-  }
-  
-  
-// Cambiar el PIN
 function cambiarPIN() {
   Swal.fire({
     title: 'Ingrese su nuevo PIN',
@@ -335,29 +312,26 @@ function cambiarPIN() {
   });
 }
 
-// Función para ocultar una sección
 function ocultarSeccion(seccion) {
     seccion.style.display = 'none';
   }
   
-  // Función para mostrar una sección
+
   function mostrarSeccion(seccion) {
     seccion.style.display = 'block';
   }
   
-  // Función para ver transacciones
   function verTransacciones() {
     const cuerpoTransacciones = document.getElementById('cuerpo-transacciones');
     const transaccionesSection = document.getElementById('transacciones-section');
-    const menuSection = document.getElementById('menu-section'); // Asumo que tienes una sección de menú
+    const menuSection = document.getElementById('menu-section'); 
     
-    cuerpoTransacciones.innerHTML = ''; // Limpia el contenido previo de la tabla
+    cuerpoTransacciones.innerHTML = ''; 
     
     if (transacciones.length === 0) {
       cuerpoTransacciones.innerHTML = `<tr><td colspan="3" class="text-center">No hay transacciones registradas.</td></tr>`;
     } else {
       transacciones.forEach((transaccion) => {
-        // Formato: "Tipo: $monto - fecha"
         const [tipoYMonto, fecha] = transaccion.split(' - ');
         const [tipo, monto] = tipoYMonto.split(': ');
         cuerpoTransacciones.innerHTML += `
@@ -369,30 +343,29 @@ function ocultarSeccion(seccion) {
       });
     }
   
-    // Ocultar menú y mostrar la sección de transacciones
     ocultarSeccion(menuSection);
     mostrarSeccion(transaccionesSection);
   }
   
-  // Función para volver al menú
+  
   function volverAlMenu() {
     const transaccionesSection = document.getElementById('transacciones-section');
-    const menuSection = document.getElementById('menu-section'); // Asumo que tienes esta sección
+    const menuSection = document.getElementById('menu-section'); 
     ocultarSeccion(transaccionesSection);
     mostrarSeccion(menuSection);
   }
   
-  // Manejador de clic para el botón de "Volver al menú"
+  
   document.getElementById('volver-menu').addEventListener('click', volverAlMenu);
   
 
-// Registrar transacción
+
 function registrarTransaccion(descripcion) {
   const ahora = luxon.DateTime.now().toLocaleString(luxon.DateTime.DATETIME_MED);
   transacciones.push(`${descripcion} - ${ahora}`);
 }
 
-// Transferir entre cuentas
+
 async function transferirEntreCuentas() {
   try {
     const { value: formValues } = await Swal.fire({
@@ -425,7 +398,7 @@ async function transferirEntreCuentas() {
       mostrarCarga("Procesando transferencia...");
       deshabilitarBotones(actionSection);
 
-      // Simular una solicitud fetch a una API externa
+     
       await validarTransferenciaConPromesa(cuentaDestino, montoValido);
 
       saldo -= montoValido;
@@ -444,21 +417,20 @@ async function transferirEntreCuentas() {
   }
 }
 
-// Función para validar transferencia usando fetch (simulación)
+
 function validarTransferenciaConPromesa(cuentaDestino, monto) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        // Validación simple usando promesas en lugar de fetch
+     
         if (cuentaDestino && monto > 0 && monto <= saldo) {
-          resolve('Transferencia válida'); // Si la cuenta y el monto son válidos
+          resolve('Transferencia válida'); 
         } else {
-          reject('Error en la transferencia. Verifique los datos ingresados.'); // Si la cuenta o el monto son inválidos
+          reject('Error en la transferencia. Verifique los datos ingresados.'); 
         }
-      }, 2000); // Simular un retraso de 2 segundos
+      }, 2000); 
     });
   }
 
-// Salir del cajero
 function salir() {
   Swal.fire({
     title: '¿Seguro que quieres salir?',
@@ -484,7 +456,6 @@ function salir() {
   });
 }
 
-// Listeners
 submitPinBtn.addEventListener('click', validarPIN);
 menuSection.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON') {
@@ -500,7 +471,6 @@ confirmActionBtn.addEventListener('click', () => {
   }
 });
 
-// Inicializar
 cargarDatos();
 mostrarMensajeBienvenida();
 actualizarSaldoUI();
